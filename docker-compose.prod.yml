@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ""
+      dockerfile: Dockerfile.prod
+    image: "localhost:7002/ebb-admin-prod_api:${IMAGE_TAG}"
+    container_name: "${CONT_NAME}"
+    ports:
+      - "7071:80"
+      - "7072:443"
+    volumes:
+    - ./nginx/conf/:/etc/nginx/conf.d/:ro
+    - /etc/nginx/ssl/:/etc/nginx/ssl/:ro
