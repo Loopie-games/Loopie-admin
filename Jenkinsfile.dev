@@ -5,8 +5,6 @@ pipeline {
         pollSCM "*/5 * * * *"
     }
 
-    tools {nodejs "NodeJS"}
-
     stages {
 	    stage('Building') {
             steps{
@@ -19,7 +17,7 @@ pipeline {
             steps{
                 script {
                     try {
-                        sh "docker compose -f docker-compose.yml --env-file config/dev.env down"
+                        sh "docker-compose -f docker-compose.yml --env-file config/dev.env down"
                     }
                     finally {}
                 }
@@ -27,7 +25,7 @@ pipeline {
         }
         stage("Deploy containers") {
             steps {
-                sh "docker compose -f docker-compose.yml --env-file config/dev.env up -d"
+                sh "docker-compose -f docker-compose.yml --env-file config/dev.env up -d"
             }
         }
     }
