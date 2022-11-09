@@ -1,11 +1,12 @@
 import { createContext, useContext } from "react";
+import { AuthStore } from "./AuthStore";
 
 type Store = {
-
+    authStore: AuthStore;
 }
 
 export const store: Store = {
-
+    authStore: new AuthStore(),
 }
 
 export const StoreContext = createContext<Store>({} as Store);
