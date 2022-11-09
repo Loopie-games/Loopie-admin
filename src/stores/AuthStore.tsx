@@ -5,7 +5,7 @@ import securityService from "../services/securityService";
 
 export class AuthStore{
     @observable token: string | undefined;
-    @observable user: any = null;
+    @observable user: any;
 
     constructor(){
         makeAutoObservable(this)
@@ -40,5 +40,8 @@ export class AuthStore{
 
     @action logout = () => {
         localStorage.removeItem('token')
+        this.token = undefined;
+        this.user = null;
+
     }
 }
