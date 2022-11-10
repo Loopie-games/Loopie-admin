@@ -10,7 +10,7 @@ const Navbar = () => {
     const {authStore} = useStore()
     const navigate = useNavigate()
     const routes = [
-        { path: '/dashboard', element: <Icon name='profile' /> },
+        { path: '/dashboard', element: <Icon name='dashboard' /> },
         { path: '/feedback', element: <Icon name='feedback' /> },
         { path: '/bug', element: <Icon name='bug' /> },
         { path: '/tilepack', element: <Icon name='tilepack_creator' /> },

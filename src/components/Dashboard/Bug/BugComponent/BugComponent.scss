@@ -1,0 +1,50 @@
+.BugComponent_Container {
+    width: calc(100% - 15px);
+    height: 40px;
+    min-height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    .BugComponent_SeverityContainer {
+        width: 4px;
+        height: 100%;
+        border-radius: 4px 0px 0px 4px;
+        background: linear-gradient(180deg, rgba(233, 93, 93, 0.2) 0%, #e95d5d 100%);
+    }
+    .BugComponent_RestContainer {
+        flex-grow: 1;
+        flex-basis: 0;
+        min-width: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.179518) 100%);
+        border-radius: 0px 4px 4px 0px;
+        align-items: center;
+        .BugComponent_DescriptionContainer {
+            flex-grow: 1;
+            flex-basis: 0;
+            min-width: 0;
+            height: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 9px;
+
+            .BugComponent_Description {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                font-family: 'Caviar Dreams';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                color: white;
+
+            }
+        }
+    }
+}

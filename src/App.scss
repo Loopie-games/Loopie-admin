@@ -1,4 +1,4 @@
-.App {  
+.App {
   display: flex;
   flex-direction: column;
   background-color: var(--color-background);
@@ -9,51 +9,49 @@
   background: linear-gradient(107.56deg, #1a2229 0%, #1a2229 100%);
 
   .ellipse:nth-of-type(1) {
-      position: absolute;
-      width: 1306.33px;
-      height: 1306.33px;
-      left: -617.2px;
-      top: -725.29px;
+    position: absolute;
+    width: 1306.33px;
+    height: 1306.33px;
+    left: -617.2px;
+    top: -725.29px;
 
-      background: rgba(255, 255, 255, 0.1);
-      filter: blur(125px);
+    background: rgba(255, 255, 255, 0.1);
+    filter: blur(125px);
   }
 
   .ellipse:nth-of-type(2) {
-      position: absolute;
-      width: 492.38px;
-      height: 492.38px;
-      left: 610.78px;
-      top: 656.38px;
-      
-      background: rgba(255, 255, 255, 0.1);
-      filter: blur(125px);
+    position: absolute;
+    width: 492.38px;
+    height: 492.38px;
+    left: 610.78px;
+    top: 656.38px;
+
+    background: rgba(255, 255, 255, 0.1);
+    filter: blur(125px);
   }
 
   .ellipse:nth-of-type(3) {
-      position: absolute;
-      width: 492.38px;
-      height: 492.38px;
-      left: 1496.5px;
-      top: -59.55px;
-      
-      background: rgba(255, 255, 255, 0.1);
-      filter: blur(125px);
+    position: absolute;
+    width: 492.38px;
+    height: 492.38px;
+    left: 1496.5px;
+    top: -59.55px;
+
+    background: rgba(255, 255, 255, 0.1);
+    filter: blur(125px);
   }
 
   .ellipse:nth-of-type(4) {
-      position: absolute;
-      width: 1403.39px;
-      height: 1403.39px;
-      left: 1706.29px;
-      top: 690.16px;
-      
-      background: rgba(255, 255, 255, 0.1);
-      filter: blur(125px);
-  }
-  
-}
+    position: absolute;
+    width: 1403.39px;
+    height: 1403.39px;
+    left: 1706.29px;
+    top: 690.16px;
 
+    background: rgba(255, 255, 255, 0.1);
+    filter: blur(125px);
+  }
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -124,7 +122,7 @@ body {
   }
 }
 
-.Route_Container{
+.Route_Container {
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -137,8 +135,29 @@ $color-background: #f5f5f5;
 $inactive-link: invert(56%) sepia(1%) saturate(0%) hue-rotate(83deg) brightness(89%) contrast(87%);
 $active-link: invert(100%) sepia(0%) saturate(0%) hue-rotate(145deg) brightness(106%) contrast(101%);
 
-
-:root{
+:root {
   --active-link: #{$active-link};
   --inactive-link: #{$inactive-link};
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #383838 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff00;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ffffff10;
+  border-radius: 20px;
+  border: 3px solid #ffffff00;
 }
