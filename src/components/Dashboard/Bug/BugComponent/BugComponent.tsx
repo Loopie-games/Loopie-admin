@@ -1,7 +1,13 @@
+
+import { observer } from 'mobx-react-lite'
 import React from 'react'
+import ReactDropdown from 'react-dropdown'
 import { Bug, BUG_SERVERITY, BUG_STATUS } from '../../../../models/bugs/bugsInterfaces'
+import { useStore } from '../../../../stores/store'
+import Icon from '../../../Shared/icon/Icon'
 import './BugComponent.scss'
 const BugComponent = (data: Bug) => {
+    const { bugStore, authStore } = useStore()
 
     const getSeverity = () => {
         switch (data.severity) {
@@ -23,26 +29,51 @@ const BugComponent = (data: Bug) => {
         return path
     }
 
+    const handleAssign = () => {
+        console.log('Assign')
+        console.log(authStore.user);
+        
+        bugStore.claimBug(data.id, authStore.user)
+        console.log(data.asignee);
+    }
+
+    const handleChangeStatus = (e: any) => {
+        console.log(e.value);
+        bugStore.changeStatus(data.id, e.value)
+    }
+
+
 
     return (
         <div className='BugComponent_Container'>
             <div className={`BugComponent_SeverityContainer ${getSeverity()}`}></div>
             <div className='BugComponent_RestContainer'>
                 <div className='BugComponent_DescriptionContainer'>
-                    <div className='BugComponent_Description'>{data.description}</div>
+                    <span className='BugComponent_Description'>
+                    {data.description}
+                    </span>
                 </div>
-                { getCurrentPath() === '/bug' && 
+                {getCurrentPath() === '/bug' && <>
                     <div className='BugComponent_StatusContainer'>
-                        <select name="status" id="status" className='BugComponent_StatusDropdown'>
-                            {Object.values(BUG_STATUS).map((key, index) => {
-                                return <option value={key} className='BugComponent_StatusOption'>{key}</option>
-                            })}
-                        </select>
+                        <ReactDropdown onChange={handleChangeStatus} className='BugComponent_StatusDropdown' controlClassName='BugComponent_StatusDropdownControl' menuClassName='BugComponent_StatusDropdownMenu' options={Object.values(BUG_STATUS)} value={data.status} />
+
                     </div>
+
+                    <div className='BugComponent_AssigneeContainer'>
+                        {data.asignee === null ?
+                            <button className='BugComponent_ClaimButton' onClick={handleAssign}>Claim</button>:  
+                            <div className='BugComponent_Assignee'>{data.asignee}</div>
+                        }
+                    </div>
+                    <div className='BugComponent_MoreContainer'>
+                        <Icon name='more' />
+                    </div>
+
+                </>
                 }
             </div>
         </div>
     )
 }
 
-export default BugComponent
+export default observer(BugComponent)

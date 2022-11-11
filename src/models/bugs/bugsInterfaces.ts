@@ -19,6 +19,7 @@ export interface Bug {
     description: string;
     severity: BUG_SERVERITY | null;
     status: BUG_STATUS;
+    asignee: string | null;
     createdDate: Date;
 }
 
