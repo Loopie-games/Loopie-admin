@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import ReactDropdown from 'react-dropdown'
 import { Bug, BUG_SERVERITY, BUG_STATUS, BUG_SORT_BY } from '../../../models/bugs/bugsInterfaces'
 import { useStore } from '../../../stores/store'
+import Icon from '../../Shared/icon/Icon'
 import './Bug.scss'
 import BugComponent from './BugComponent/BugComponent'
 
@@ -28,10 +29,16 @@ const BugC = () => {
         <div className='BugPage_BugTitleContainer'>
           <div className='BugPage_BugTitleWrapper'>
             <div className='BugPage_BugTitle'>Bug reports</div>
+            <div className='BugPage_SearchContainer'>
+              <div className='BugPage_SearchIcon'>
+                <Icon name='search' />
+              </div>
+              <input className='BugPage_SearchInput' placeholder='Search' />
+            </div>
             <div className='BugPage_BugSortContainer'>
               <div className='BugPage_BugSortTitle'>Sort by:</div>
               <div className='BugPage_BugSortButtonContainer'>
-                <ReactDropdown options={Object.values(BUG_SORT_BY)} onChange={(e) => handleSort(e)} className='BugPage_BugSortDropdown' controlClassName='BugComponent_StatusDropdownControl' menuClassName='BugComponent_StatusDropdownMenu'/>
+                <ReactDropdown options={Object.values(BUG_SORT_BY)} onChange={(e) => handleSort(e)} className='BugPage_BugSortDropdown' controlClassName='BugComponent_StatusDropdownControl' menuClassName='BugComponent_StatusDropdownMenu' />
               </div>
             </div>
           </div>

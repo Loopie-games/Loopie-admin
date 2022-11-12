@@ -54,6 +54,7 @@
                 width: 100%;
                 height: 100%;
                 align-items: center;
+                gap: 20px;
                 .BugPage_BugTitle {
                     flex: 1;
                     color: #fff;
@@ -62,7 +63,52 @@
                     font-weight: 400;
                     font-size: 20px;
                 }
-                .BugPage_BugSortContainer{
+
+                .BugPage_SearchContainer {
+                    flex: 1;
+                    height: 100%;
+                    border-radius: 100px;
+                    max-width: 250px;
+                    display: flex;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                    background: rgba($color: #fff, $alpha: 0.15);    
+                    gap: 10px;
+                    .BugPage_SearchIcon {
+                        width: 16px;
+                        height: 16px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-left: 10px;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            filter: var(--active-link);
+                        }
+                    }
+                    .BugPage_SearchInput {
+                        flex: 1;
+                        background-color: transparent;
+                        height: 100%;
+                        font-family: "Caviar Dreams";
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 12px;
+                        color: #fff;
+                        outline: none;
+                        border: none;
+                        text-align: start;
+                        margin-right: 10px;
+
+                        &::placeholder {
+                            color: rgba(255, 255, 255, 0.5);
+                        }
+                    }
+                }
+
+                .BugPage_BugSortContainer {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -74,7 +120,7 @@
                         font-weight: 400;
                         font-size: 14px;
                     }
-                    .BugPage_BugSortButtonContainer{
+                    .BugPage_BugSortButtonContainer {
                         min-width: 150px;
                         height: 100%;
                         display: flex;
@@ -100,7 +146,6 @@
                             flex-direction: column;
                         }
                     }
-                    
                 }
             }
             .BugPage_Line {
