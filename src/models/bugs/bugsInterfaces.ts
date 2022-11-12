@@ -1,3 +1,5 @@
+import {SimpleUserDTO} from "../user/userInterface";
+
 export enum BUG_SERVERITY {
     SEVERE = 'SEVERE',
     MAJOR = 'MAJOR',
@@ -20,5 +22,13 @@ export interface Bug {
     severity: BUG_SERVERITY | null;
     status: BUG_STATUS;
     createdDate: Date;
+}
+
+export interface BugReport {
+    id: string;
+    title: string;
+    description: string;
+    reportingUser: SimpleUserDTO;
+
 }
 

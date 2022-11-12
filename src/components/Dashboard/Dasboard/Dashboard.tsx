@@ -1,14 +1,25 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bug, BUG_SERVERITY, BUG_STATUS } from '../../../models/bugs/bugsInterfaces'
+import {Bug, BUG_SERVERITY, BUG_STATUS, BugReport} from '../../../models/bugs/bugsInterfaces'
 import BugComponent from '../Bug/BugComponent/BugComponent'
 import './Dashboard.scss'
+import {useStore} from "../../../stores/store";
 
 const Dashboard = () => {
   const navigate = useNavigate()
+  const {bugReportStore} = useStore();
+  const [bugReports, setBugReports] = useState <BugReport[]>([]);
 
   const navigateTo = (path: string) => {
     navigate(path)
+  }
+
+  useEffect(()=>{
+    initBR()
+  },[])
+
+  const initBR = async () => {
+    setBugReports(await bugReportStore.getAll())
   }
 
   const testBugs: Bug[] = [
@@ -131,7 +142,7 @@ const Dashboard = () => {
               <div className='DashboardComponent_Line'></div>
             </div>
             <div className='DashboardComponent_ContentContainer'>
-              {testBugs.map((bug) => {
+              {bugReports.map((bug) => {
                 return <BugComponent {...bug} />
               })}
             </div>
