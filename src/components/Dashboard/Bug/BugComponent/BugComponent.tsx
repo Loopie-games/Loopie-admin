@@ -1,8 +1,9 @@
 import React from 'react'
-import { Bug, BUG_SERVERITY, BUG_STATUS } from '../../../../models/bugs/bugsInterfaces'
+import {Bug, BUG_SERVERITY, BUG_STATUS, BugReport} from '../../../../models/bugs/bugsInterfaces'
 import './BugComponent.scss'
-const BugComponent = (data: Bug) => {
+const BugComponent = (data: BugReport) => {
 
+    /*
     const getSeverity = () => {
         switch (data.severity) {
             case BUG_SERVERITY.SEVERE:
@@ -18,12 +19,14 @@ const BugComponent = (data: Bug) => {
         }
     }
 
+     */
+
     const getCurrentPath = () => {
         const path = window.location.pathname
         return path
     }
 
-
+/*
     return (
         <div className='BugComponent_Container'>
             <div className={`BugComponent_SeverityContainer ${getSeverity()}`}></div>
@@ -40,6 +43,18 @@ const BugComponent = (data: Bug) => {
                         </select>
                     </div>
                 }
+            </div>
+        </div>
+    )
+
+ */
+
+    return (
+        <div className='BugComponent_Container'>
+            <div className='BugComponent_RestContainer'>
+                <div className='BugComponent_DescriptionContainer'>
+                    <div className='BugComponent_Description'>{data.title}</div>
+                </div>
             </div>
         </div>
     )
