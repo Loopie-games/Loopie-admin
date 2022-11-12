@@ -32,7 +32,7 @@ const BugComponent = (data: Bug) => {
     const handleAssign = () => {
         console.log('Assign')
         console.log(authStore.user);
-        
+
         bugStore.claimBug(data.id, authStore.user)
         console.log(data.asignee);
     }
@@ -56,7 +56,7 @@ const BugComponent = (data: Bug) => {
             <div className={`BugComponent_RestContainer ${getCurrentPath() === '/bug' ? 'BugComponent_OnSite' : 'BugComponent_OffSite'}`}>
                 <div className='BugComponent_DescriptionContainer'>
                     <span className='BugComponent_Description'>
-                    {data.description}
+                        {data.description}
                     </span>
                 </div>
                 {getCurrentPath() === '/bug' && <>
@@ -67,12 +67,12 @@ const BugComponent = (data: Bug) => {
 
                     <div className='BugComponent_AssigneeContainer'>
                         {data.asignee === null ?
-                            <button className='BugComponent_ClaimButton' onClick={handleAssign}>Claim</button>:  
+                            <button className='BugComponent_ClaimButton' onClick={handleAssign}>Claim</button> :
                             <div className='BugComponent_Assignee'>{data.asignee}</div>
                         }
                     </div>
                     <div className='BugComponent_MoreContainer' onClick={handleDelete}>
-                        <Icon name='cross'  />
+                        <Icon name='cross' />
                     </div>
 
                 </>
