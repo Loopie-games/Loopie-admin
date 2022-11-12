@@ -42,12 +42,18 @@ const BugComponent = (data: Bug) => {
         bugStore.changeStatus(data.id, e.value)
     }
 
+    const handleDelete = () => {
+        console.log('Delete')
+        bugStore.deleteBug(data.id)
+    }
+
+
 
 
     return (
         <div className='BugComponent_Container'>
             <div className={`BugComponent_SeverityContainer ${getSeverity()}`}></div>
-            <div className='BugComponent_RestContainer'>
+            <div className={`BugComponent_RestContainer ${getCurrentPath() === '/bug' ? 'BugComponent_OnSite' : 'BugComponent_OffSite'}`}>
                 <div className='BugComponent_DescriptionContainer'>
                     <span className='BugComponent_Description'>
                     {data.description}
@@ -65,8 +71,8 @@ const BugComponent = (data: Bug) => {
                             <div className='BugComponent_Assignee'>{data.asignee}</div>
                         }
                     </div>
-                    <div className='BugComponent_MoreContainer'>
-                        <Icon name='more' />
+                    <div className='BugComponent_MoreContainer' onClick={handleDelete}>
+                        <Icon name='cross'  />
                     </div>
 
                 </>

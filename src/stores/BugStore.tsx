@@ -62,4 +62,9 @@ export class BugStore {
         this.bugs.find(bug => bug.id === id)!.status = status
     }
 
+    @action deleteBug = async (id: number) => {
+        console.log('deleteBug');
+        this.bugs = this.bugs.filter(bug => bug.id !== id)
+    }
+
 }
