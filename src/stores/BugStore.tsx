@@ -1,6 +1,6 @@
 import axios from "axios"
 import { action, makeAutoObservable, observable } from "mobx"
-import { Bug, BUG_SERVERITY, BUG_STATUS } from "../models/bugs/bugsInterfaces";
+import { Bug, BUG_SERVERITY, BUG_SORT_BY, BUG_STATUS } from "../models/bugs/bugsInterfaces";
 import authService from "../services/AuthService";
 import securityService from "../services/securityService";
 
@@ -54,17 +54,56 @@ export class BugStore {
         this.bugs.find(bug => bug.id === id)!.asignee = user.username
 
         console.log(this.bugs);
-        
+
     }
 
     @action changeStatus = async (id: number, status: BUG_STATUS) => {
         console.log('changeStatus');
         this.bugs.find(bug => bug.id === id)!.status = status
+        console.log(this.bugs);
+
     }
 
     @action deleteBug = async (id: number) => {
         console.log('deleteBug');
         this.bugs = this.bugs.filter(bug => bug.id !== id)
+    }
+
+    @action sortBugs = async (sortType: BUG_SORT_BY) => {
+        console.log('sortBugs');
+
+
+        switch (sortType) {
+            case BUG_SORT_BY.SEVERITY:
+                this.bugs = this.bugs.slice().sort((a, b) => {
+                    return Object.keys(BUG_SERVERITY).indexOf(a.severity!) - Object.keys(BUG_SERVERITY).indexOf(b.severity!)
+                })
+
+                console.log('severity');
+
+                break;
+            case BUG_SORT_BY.STATUS:
+                this.bugs = this.bugs.slice().sort((a, b) => {
+                    return Object.values(BUG_STATUS).indexOf(a.status) - Object.values(BUG_STATUS).indexOf(b.status)
+                })
+
+                console.log('status');
+                break;
+            case BUG_SORT_BY.ASIGNEE:
+                this.bugs = this.bugs.slice().sort((a, b) => {
+                    return (a.asignee || '').localeCompare(b.asignee || '')
+                })
+                console.log('asignee');
+                break;
+            case BUG_SORT_BY.CREATED_DATE:
+                this.bugs = this.bugs.slice().sort((a, b) => {
+                    return a.createdDate.getTime() - b.createdDate.getTime()
+                })
+                console.log('createdDate');
+                break;
+            default:
+                break;
+        }
     }
 
 }

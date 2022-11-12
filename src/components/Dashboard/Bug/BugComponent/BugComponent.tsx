@@ -2,7 +2,7 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import ReactDropdown from 'react-dropdown'
-import { Bug, BUG_SERVERITY, BUG_STATUS } from '../../../../models/bugs/bugsInterfaces'
+import { Bug, BUG_SERVERITY, BUG_SORT_BY, BUG_STATUS } from '../../../../models/bugs/bugsInterfaces'
 import { useStore } from '../../../../stores/store'
 import Icon from '../../../Shared/icon/Icon'
 import './BugComponent.scss'

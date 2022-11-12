@@ -23,3 +23,12 @@ export interface Bug {
     createdDate: Date;
 }
 
+export enum BUG_SORT_BY {
+    ID = 'Id',
+    SEVERITY = 'Severity',
+    STATUS = 'Status',
+    ASIGNEE = 'Asignee',
+    CREATED_DATE = 'Created Date'
+}
+
+
