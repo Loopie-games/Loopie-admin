@@ -1,0 +1,167 @@
+.BugPage_Container {
+    width: calc(100% - 80px);
+    height: calc(100% - 80px);
+    flex-direction: column;
+    display: flex;
+    padding: 40px;
+    .BugPage_TitleContainer {
+        height: 40px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        font-family: "Caviar Dreams";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        color: #fff;
+        margin-bottom: 45px;
+    }
+
+    .BugPage_BugContainer {
+        width: calc(100% - 48px);
+        height: calc(100% - 48px);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.25);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+
+        &::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            content: "";
+            border-radius: inherit;
+            box-shadow: inset 0 1px 1px rgba(255, 0, 153, 0.25);
+        }
+
+        .BugPage_BugTitleContainer {
+            height: 40px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+            .BugPage_BugTitleWrapper {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                height: 100%;
+                align-items: center;
+                gap: 20px;
+                .BugPage_BugTitle {
+                    flex: 1;
+                    color: #fff;
+                    font-family: "Caviar Dreams";
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 20px;
+                }
+
+                .BugPage_SearchContainer {
+                    flex: 1;
+                    height: 100%;
+                    border-radius: 100px;
+                    max-width: 250px;
+                    display: flex;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                    background: rgba($color: #fff, $alpha: 0.15);    
+                    gap: 10px;
+                    .BugPage_SearchIcon {
+                        width: 16px;
+                        height: 16px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-left: 10px;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            filter: var(--active-link);
+                        }
+                    }
+                    .BugPage_SearchInput {
+                        flex: 1;
+                        background-color: transparent;
+                        height: 100%;
+                        font-family: "Caviar Dreams";
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 12px;
+                        color: #fff;
+                        outline: none;
+                        border: none;
+                        text-align: start;
+                        margin-right: 10px;
+
+                        &::placeholder {
+                            color: rgba(255, 255, 255, 0.5);
+                        }
+                    }
+                }
+
+                .BugPage_BugSortContainer {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+                    .BugPage_BugSortTitle {
+                        color: #fff;
+                        font-family: "Caviar Dreams";
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                    }
+                    .BugPage_BugSortButtonContainer {
+                        min-width: 150px;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        .BugPage_BugSortDropdown {
+                            background: rgba($color: #fff, $alpha: 0.15);
+                            display: flex;
+                            align-items: center;
+                            border-radius: 100px;
+                            width: 100%;
+                            height: 20px;
+                            font-family: "Caviar Dreams";
+                            font-style: normal;
+                            font-weight: normal;
+                            font-size: 12px;
+                            color: #fff;
+                            outline: none;
+                            border: none;
+                            text-align: center;
+                            cursor: pointer;
+                            flex-direction: column;
+                        }
+                    }
+                }
+            }
+            .BugPage_Line {
+                width: 100%;
+                height: 1px;
+                background: rgba(255, 255, 255, 0.1);
+            }
+        }
+        .BugPage_BugWrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow: auto;
+            flex-grow: 1;
+            flex-basis: 0;
+            gap: 15px;
+        }
+    }
+}

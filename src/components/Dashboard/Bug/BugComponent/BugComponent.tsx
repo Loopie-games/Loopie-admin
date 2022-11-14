@@ -1,7 +1,13 @@
+
+import { observer } from 'mobx-react-lite'
 import React from 'react'
-import {Bug, BUG_SERVERITY, BUG_STATUS, BugReport} from '../../../../models/bugs/bugsInterfaces'
+import ReactDropdown from 'react-dropdown'
+import { Bug, BUG_SERVERITY, BUG_SORT_BY, BUG_STATUS } from '../../../../models/bugs/bugsInterfaces'
+import { useStore } from '../../../../stores/store'
+import Icon from '../../../Shared/icon/Icon'
 import './BugComponent.scss'
-const BugComponent = (data: BugReport) => {
+const BugComponent = (data: Bug) => {
+    const { bugStore, authStore } = useStore()
 
     /*
     const getSeverity = () => {
@@ -26,22 +32,50 @@ const BugComponent = (data: BugReport) => {
         return path
     }
 
-/*
+    const handleAssign = () => {
+        console.log('Assign')
+        console.log(authStore.user);
+
+        bugStore.claimBug(data.id, authStore.user)
+        console.log(data.asignee);
+    }
+
+    const handleChangeStatus = (e: any) => {
+        console.log(e.value);
+        bugStore.changeStatus(data.id, e.value)
+    }
+
+    const handleDelete = () => {
+        console.log('Delete')
+        bugStore.deleteBug(data.id)
+    }
+    
     return (
         <div className='BugComponent_Container'>
             <div className={`BugComponent_SeverityContainer ${getSeverity()}`}></div>
-            <div className='BugComponent_RestContainer'>
+            <div className={`BugComponent_RestContainer ${getCurrentPath() === '/bug' ? 'BugComponent_OnSite' : 'BugComponent_OffSite'}`}>
                 <div className='BugComponent_DescriptionContainer'>
-                    <div className='BugComponent_Description'>{data.description}</div>
+                    <span className='BugComponent_Description'>
+                        {data.description}
+                    </span>
                 </div>
-                { getCurrentPath() === '/bug' && 
+                {getCurrentPath() === '/bug' && <>
                     <div className='BugComponent_StatusContainer'>
-                        <select name="status" id="status" className='BugComponent_StatusDropdown'>
-                            {Object.values(BUG_STATUS).map((key, index) => {
-                                return <option value={key} className='BugComponent_StatusOption'>{key}</option>
-                            })}
-                        </select>
+                        <ReactDropdown onChange={handleChangeStatus} className='BugComponent_StatusDropdown' controlClassName='BugComponent_StatusDropdownControl' menuClassName='BugComponent_StatusDropdownMenu' options={Object.values(BUG_STATUS)} value={data.status} />
+
                     </div>
+
+                    <div className='BugComponent_AssigneeContainer'>
+                        {data.asignee === null ?
+                            <button className='BugComponent_ClaimButton' onClick={handleAssign}>Claim</button> :
+                            <div className='BugComponent_Assignee'>{data.asignee}</div>
+                        }
+                    </div>
+                    <div className='BugComponent_MoreContainer' onClick={handleDelete}>
+                        <Icon name='cross' />
+                    </div>
+
+                </>
                 }
             </div>
         </div>
@@ -60,4 +94,4 @@ const BugComponent = (data: BugReport) => {
     )
 }
 
-export default BugComponent
+export default observer(BugComponent)

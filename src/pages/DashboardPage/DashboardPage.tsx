@@ -15,7 +15,7 @@ const DashboardPage = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (authStore.user === null) {
+        if (authStore.user === null || authStore.user === undefined) {
             navigate('/')
         }
     }, [authStore.user])

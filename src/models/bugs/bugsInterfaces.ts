@@ -21,7 +21,16 @@ export interface Bug {
     description: string;
     severity: BUG_SERVERITY | null;
     status: BUG_STATUS;
+    asignee: string | null;
     createdDate: Date;
+}
+
+export enum BUG_SORT_BY {
+    ID = 'Id',
+    SEVERITY = 'Severity',
+    STATUS = 'Status',
+    ASIGNEE = 'Asignee',
+    CREATED_DATE = 'Created Date'
 }
 
 export interface BugReport {
@@ -31,4 +40,3 @@ export interface BugReport {
     reportingUser: SimpleUserDTO;
 
 }
-

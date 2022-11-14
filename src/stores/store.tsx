@@ -1,6 +1,10 @@
 import { createContext, useContext } from "react";
 import { AuthStore } from "./AuthStore";
-import {BugReportStore} from "./BugReportStore";
+import { BugStore } from "./BugStore";
+
+type Store = {
+    authStore: AuthStore;
+    bugStore: BugStore;
 
 type Store = {
     authStore: AuthStore;
@@ -9,7 +13,7 @@ type Store = {
 
 export const store: Store = {
     authStore: new AuthStore(),
-    bugReportStore: new BugReportStore(),
+    bugStore: new BugStore(),
 }
 
 export const StoreContext = createContext<Store>({} as Store);

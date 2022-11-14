@@ -1,5 +1,6 @@
 {
-  "name": "react-frontend-template",  "version": "0.1.0",
+  "name": "react-frontend-template",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@microsoft/signalr": "^6.0.7",
@@ -18,6 +19,7 @@
     "mobx-react-lite": "^3.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropdown": "^1.11.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "sass": "^1.54.0",

@@ -4,8 +4,12 @@ import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, useLoca
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
+import { useStore } from './stores/store';
+import { useEffect } from 'react';
 
 function App() {
+  const { authStore } = useStore();
+
   const routes = [
     { path: '/', element: <LoginPage /> },
     { path: '/dashboard', element: <DashboardPage /> },
@@ -15,12 +19,23 @@ function App() {
     { path: '/usermanagement', element: <DashboardPage /> },
   ]
 
+  useEffect(() => {
+    if (!authStore.user) {
+      if (localStorage.getItem('token')) {
+        authStore.getLogged()
+      }
+    }
+
+  }, [authStore.user])
+
+
+
   return (
     <div className="App">
-    <div className='ellipse'></div>
-    <div className='ellipse'></div>
-    <div className='ellipse'></div>
-    <div className='ellipse'></div>
+      <div className='ellipse'></div>
+      <div className='ellipse'></div>
+      <div className='ellipse'></div>
+      <div className='ellipse'></div>
       <Router>
         <Routes>
           {routes.map((route, index) => (
