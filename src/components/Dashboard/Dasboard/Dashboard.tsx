@@ -6,12 +6,10 @@ import { Bug, BUG_SERVERITY, BUG_STATUS } from '../../../models/bugs/bugsInterfa
 import { useStore } from '../../../stores/store'
 import BugComponent from '../Bug/BugComponent/BugComponent'
 import './Dashboard.scss'
-import {useStore} from "../../../stores/store";
 
 const Dashboard = () => {
   const navigate = useNavigate()
-  const {bugReportStore} = useStore();
-  const [bugReports, setBugReports] = useState <BugReport[]>([]);
+  const {bugStore} = useStore();
 
   const navigateTo = (path: string) => {
     navigate(path)

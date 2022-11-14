@@ -9,7 +9,7 @@ import './BugComponent.scss'
 const BugComponent = (data: Bug) => {
     const { bugStore, authStore } = useStore()
 
-    /*
+    
     const getSeverity = () => {
         switch (data.severity) {
             case BUG_SERVERITY.SEVERE:
@@ -25,7 +25,6 @@ const BugComponent = (data: Bug) => {
         }
     }
 
-     */
 
     const getCurrentPath = () => {
         const path = window.location.pathname
@@ -77,18 +76,6 @@ const BugComponent = (data: Bug) => {
 
                 </>
                 }
-            </div>
-        </div>
-    )
-
- */
-
-    return (
-        <div className='BugComponent_Container'>
-            <div className='BugComponent_RestContainer'>
-                <div className='BugComponent_DescriptionContainer'>
-                    <div className='BugComponent_Description'>{data.title}</div>
-                </div>
             </div>
         </div>
     )
