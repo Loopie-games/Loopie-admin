@@ -5,12 +5,6 @@ import { BugStore } from "./BugStore";
 type Store = {
     authStore: AuthStore;
     bugStore: BugStore;
-
-};
-
-type Store = {
-    authStore: AuthStore;
-    bugStore: BugStore;
 }
 
 export const store: Store = {
