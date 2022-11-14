@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDropdown from 'react-dropdown'
 import { Bug, BUG_SERVERITY, BUG_STATUS, BUG_SORT_BY } from '../../../models/bugs/bugsInterfaces'
 import { useStore } from '../../../stores/store'
@@ -9,14 +9,28 @@ import BugComponent from './BugComponent/BugComponent'
 
 const BugC = () => {
   const { bugStore } = useStore()
+  const [filteredBugs, setFilteredBugs] = useState<Bug[]>(bugStore.bugs)
 
   useEffect(() => {
     bugStore.sortBugs(BUG_SORT_BY.SEVERITY)
-
   }, [])
+
+  useEffect(() => {
+    setFilteredBugs(bugStore.bugs)
+  }, [bugStore.bugs])
 
   const handleSort = (e: any) => {
     bugStore.sortBugs(e.value)
+  }
+
+  const handleSearch = async (query: string) => {
+    if (query === '') {
+      setFilteredBugs(bugStore.bugs)
+      return
+    }
+    setFilteredBugs(bugStore.searchBugs(query))
+
+
   }
 
 
@@ -33,7 +47,7 @@ const BugC = () => {
               <div className='BugPage_SearchIcon'>
                 <Icon name='search' />
               </div>
-              <input className='BugPage_SearchInput' placeholder='Search' />
+              <input className='BugPage_SearchInput' placeholder='Search' onChange={(e) => handleSearch(e.target.value)} />
             </div>
             <div className='BugPage_BugSortContainer'>
               <div className='BugPage_BugSortTitle'>Sort by:</div>
@@ -45,7 +59,7 @@ const BugC = () => {
           <div className='BugPage_Line'></div>
         </div>
         <div className='BugPage_BugWrapper'>
-          {bugStore.bugs.map((bug) => {
+          {filteredBugs.map((bug) => {
             return <BugComponent {...bug} />
           })}
         </div>

@@ -106,4 +106,13 @@ export class BugStore {
         }
     }
 
+    @action searchBugs = (searchText: string) => {
+        return this.bugs.filter(bug => {
+            return Object.values(bug).some(value => {
+                return value.toString().toLowerCase().includes(searchText.toLowerCase())
+
+            })
+        })
+    }
+
 }
