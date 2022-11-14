@@ -6,9 +6,11 @@ type Store = {
     authStore: AuthStore;
     bugStore: BugStore;
 
+};
+
 type Store = {
     authStore: AuthStore;
-    bugReportStore: BugReportStore;
+    bugStore: BugStore;
 }
 
 export const store: Store = {
