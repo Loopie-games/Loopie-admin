@@ -1,3 +1,5 @@
+import {SimpleUserDTO} from "../user/userInterface";
+
 export enum BUG_SERVERITY {
     SEVERE = 'SEVERE',
     MAJOR = 'MAJOR',
@@ -31,4 +33,10 @@ export enum BUG_SORT_BY {
     CREATED_DATE = 'Created Date'
 }
 
+export interface BugReport {
+    id: string;
+    title: string;
+    description: string;
+    reportingUser: SimpleUserDTO;
 
+}
