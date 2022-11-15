@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Icon from '../icon/Icon'
 import './Navbar.scss'
 import logo from '../../../assets/Shared/loopie_logo_white.png'
@@ -7,16 +7,18 @@ import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
-    const {authStore} = useStore()
+    const { authStore } = useStore()
     const navigate = useNavigate()
     const routes = [
         { path: '/dashboard', element: <Icon name='dashboard' /> },
         { path: '/feedback', element: <Icon name='feedback' /> },
-        { path: '/bug', element: <Icon name='bug' /> },
         { path: '/tilepack', element: <Icon name='tilepack_creator' /> },
         { path: '/usermanagement', element: <Icon name='profile' /> },
-        { path: '/test', element: <Icon name='profile' /> },
     ]
+
+    const [BugSubMenuShown, setBugSubMenuShown] = useState(false)
+
+
 
     const getCurrentPath = () => {
         const path = window.location.pathname
@@ -30,12 +32,17 @@ const Navbar = () => {
 
     const handleNavigate = (path: string) => {
         navigate(path)
+        setBugSubMenuShown(false)
     }
 
     useEffect(() => {
         console.log(getCurrentPath());
     }, [window.location.pathname])
-    
+
+
+    const handleBugSubMenu = () => {
+        setBugSubMenuShown(!BugSubMenuShown)
+    }
 
     return (
         <div className='Navbar_Container'>
@@ -49,6 +56,24 @@ const Navbar = () => {
                             {route.element}
                         </li>
                     ))}
+
+
+                    <div>
+                        <li className={`Navbar_MainButton ${BugSubMenuShown ? 'active-link' : ''} `} onClick={handleBugSubMenu}>
+                            <Icon name='bug' />
+                        </li>
+                        {
+                            <div className={`Navbar_BugSubMenu ${BugSubMenuShown ? 'BugMenu_Open' : 'BugMenu_Closed'}`}>
+                                <div className={`Navbar_MainButton ${getCurrentPath() === '/bug' ? 'active-link' : ''} `} onClick={() => handleNavigate('/bug')}>
+                                    <Icon name='bugreports' />
+                                </div>
+                                <div className={`Navbar_MainButton ${getCurrentPath() === '/test' ? 'active-link' : ''} `} onClick={() => handleNavigate('/test')}>
+                                    <Icon name='exclamation' />
+                                </div>
+                            </div>
+
+                        }
+                    </div>
                 </ul>
             </div>
             <div className='Navbar_LogoutContainer'>

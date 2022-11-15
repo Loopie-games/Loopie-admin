@@ -64,7 +64,7 @@
                 cursor: pointer;
 
                 filter: var(--inactive-link);
-                img{
+                img {
                     width: 100%;
                     height: 100%;
                 }
@@ -89,7 +89,44 @@
     }
 }
 
+.Navbar_BugSubMenu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    transition-property: height, opacity;
+    transition: 0.2s ease-in-out;
+    overflow: hidden;
+
+    .Navbar_MainButton {
+        width: 20px !important;
+        height: 20px !important;
+        min-height: 20px;
+        min-width: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        filter: var(--inactive-link);
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
 
 .active-link {
     filter: var(--active-link) !important;
+}
+
+.BugMenu_Open {
+    height: 100%;
+    opacity: 100%;
+}
+
+.BugMenu_Closed {
+    height: 0;
+    opacity: 0;
 }
