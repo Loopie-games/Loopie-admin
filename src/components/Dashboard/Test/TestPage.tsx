@@ -1,14 +1,17 @@
 import React from 'react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useStore } from '../../../stores/store';
 import Cards from './Cards/Cards';
 import Columns from './Columns/Columns';
 import './TestPage.scss'
 
 const TestPage = () => {
 
+    const { bugStore } = useStore()
+
     //React Beautiful DND between two dropable areas
     const itemsFromBackend = [
-        { id: 1, content: "First task" },
+        { id: 1, content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur ipsa optio perferendis voluptatem nemo architecto eveniet. Quia aliquid enim harum non repudiandae qui doloremque deleniti alias velit. Assumenda, modi deserunt.' },
         { id: 2, content: "Second task" },
         { id: 3, content: "Third task" },
         { id: 4, content: "Fourth task" },
@@ -20,7 +23,7 @@ const TestPage = () => {
     const columnsFromBackend = {
         [1]: {
             name: "Backlog",
-            items: itemsFromBackend
+            items: bugStore.bugs
         },
         [2]: {
             name: "Sprint Prep",
@@ -83,7 +86,7 @@ const TestPage = () => {
     return (
         <div className='TestPage_Container'>
             <div className='TestPage_TitleContainer'>
-                TITLE
+                Bug Tracker
             </div>
             <div className='TestPage_ContentContainer'>
                 <div className='TestPage_ContentWrapper'>

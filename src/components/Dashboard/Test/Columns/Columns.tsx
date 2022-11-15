@@ -1,5 +1,6 @@
 import React from 'react'
 import { Draggable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
+import { Bug } from '../../../../models/bugs/bugsInterfaces';
 import Cards from '../Cards/Cards';
 import './Columns.scss'
 interface ColumnProps {
@@ -7,10 +8,7 @@ interface ColumnProps {
     snapshot: DroppableStateSnapshot;
     column: {
         name: string;
-        items: {
-            id: number;
-            content: string;
-        }[];
+        items: Bug[];
     };
 
 }
