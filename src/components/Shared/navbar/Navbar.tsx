@@ -15,6 +15,7 @@ const Navbar = () => {
         { path: '/bug', element: <Icon name='bug' /> },
         { path: '/tilepack', element: <Icon name='tilepack_creator' /> },
         { path: '/usermanagement', element: <Icon name='profile' /> },
+        { path: '/test', element: <Icon name='profile' /> },
     ]
 
     const getCurrentPath = () => {
