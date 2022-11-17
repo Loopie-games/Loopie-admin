@@ -47,16 +47,18 @@ const Cards = ({ provided, snapshot, item }: CardProps) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             className={`Cards_Container ${getSeverityColor(item.severity!)} ${snapshot.isDragging ? 'Cards_Dragging' : ''}`}
-            onClick={() => popupStore.openBugOverview(
-                <BugOverviewComponent bug={item} />
-                , item)}
+
         >
-            <div className='Cards_Edit'>
+            <div className='Cards_Edit' onClick={() => popupStore.openBugOverview(
+                <BugOverviewComponent bug={item} />
+                , item)}>
                 <Icon name="edit" />
             </div>
             <div className='Cards_Wrapper'>
 
-                <div className='Cards_ContentContainer'>
+                <div className='Cards_ContentContainer' onClick={() => popupStore.openBugOverview(
+                <BugOverviewComponent bug={item} />
+                , item)}>
                     {item.description}
                 </div>
                 <div className='Cards_ClaimContainer'>
