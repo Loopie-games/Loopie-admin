@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 import { Bug, BUG_SERVERITY } from '../../../../models/bugs/bugsInterfaces';
 import { useStore } from '../../../../stores/store';
+import BugOverviewComponent from '../../../Popups/BugOverview/BugOverviewComponent';
 import Icon from '../../../Shared/icon/Icon';
 import './Cards.scss'
 
@@ -13,7 +14,7 @@ export interface CardProps {
 }
 
 const Cards = ({ provided, snapshot, item }: CardProps) => {
-    const { bugStore, authStore } = useStore()
+    const { bugStore, authStore, popupStore } = useStore()
     const getSeverityColor = (severity: BUG_SERVERITY) => {
         switch (severity) {
             case BUG_SERVERITY.SEVERE:
@@ -46,6 +47,9 @@ const Cards = ({ provided, snapshot, item }: CardProps) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             className={`Cards_Container ${getSeverityColor(item.severity!)} ${snapshot.isDragging ? 'Cards_Dragging' : ''}`}
+            onClick={() => popupStore.openBugOverview(
+                <BugOverviewComponent bug={item} />
+                , item)}
         >
             <div className='Cards_Edit'>
                 <Icon name="edit" />

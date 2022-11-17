@@ -59,7 +59,7 @@ const Navbar = () => {
 
 
                     <div>
-                        <li className={`Navbar_MainButton ${BugSubMenuShown ? 'active-link' : ''} `} onClick={handleBugSubMenu}>
+                        <li className={`Navbar_MainButton ${BugSubMenuShown || getCurrentPath() === '/bug' || getCurrentPath() === '/test' ? 'active-link' : ''} `} onClick={handleBugSubMenu}>
                             <Icon name='bug' />
                         </li>
                         {
