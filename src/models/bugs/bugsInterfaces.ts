@@ -36,7 +36,7 @@ export enum BUG_SORT_BY {
 export interface BugReport {
     id: string;
     title: string;
-    description: string;
+    description?: string;
     reportingUser: SimpleUserDTO;
-
+    starId?: string;
 }
