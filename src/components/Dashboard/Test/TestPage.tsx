@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useStore } from '../../../stores/store';
@@ -128,4 +129,4 @@ const TestPage = () => {
 
 
 
-export default TestPage
+export default observer(TestPage)

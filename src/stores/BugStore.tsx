@@ -44,6 +44,13 @@ export class BugStore {
         makeAutoObservable(this)
     }
 
+    @action changeSeverity = (bugid: number, severity: BUG_SERVERITY) => {
+        const bug = this.bugs.find(b => b.id === bugid);
+        if (bug) {
+            bug.severity = severity;
+        }
+    }
+
 
     @action getBugs = async () => {
         console.log('getBugs');
@@ -116,6 +123,19 @@ export class BugStore {
 
             })
         })
+    }
+
+    @action saveBug = async (bug: Bug) => {
+        console.log('saveBug');
+
+        const index = this.bugs.findIndex(b => b.id === bug.id)
+        if (index !== -1) {
+            this.bugs[index] = bug
+        } else {
+            this.bugs.push(bug)
+        }
+        //const response = await BugReportService.save(bug);
+        //console.log(response.data);
     }
 
 }

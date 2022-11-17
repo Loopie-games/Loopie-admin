@@ -29,10 +29,7 @@ const BugC = () => {
       return
     }
     setFilteredBugs(bugStore.searchBugs(query))
-
-
   }
-
 
   return (
     <div className='BugPage_Container'>

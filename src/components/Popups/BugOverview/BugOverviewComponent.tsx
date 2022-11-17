@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import ReactDropdown from 'react-dropdown'
 import { Bug, BUG_SERVERITY } from '../../../models/bugs/bugsInterfaces'
@@ -11,7 +12,7 @@ export interface BugOverviewComponentProps {
 
 
 const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
-    const { popupStore } = useStore();
+    const { popupStore, bugStore } = useStore();
     const [bugTitle, setBugTitle] = React.useState(bug.description);
     const [bugDescription, setBugDescription] = React.useState('');
     const [bugSeverity, setBugSeverity] = React.useState(bug.severity);
@@ -20,6 +21,7 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
     const handleSetBugSeverity = (severity: any) => {
         console.log(severity);
         setBugSeverity(severity.value);
+        console.log(bugStore.bugs);
     }
 
     useEffect(() => {
@@ -29,6 +31,8 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
 
 
     const getSeverityColor = () => {
+        console.log(bugSeverity);
+
         switch (bugSeverity) {
             case BUG_SERVERITY.SEVERE:
                 setBugSeverityColor('BugOverviewComponent_Severe')
@@ -54,14 +58,20 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
         }
     }
 
+    const handleSave = () => {
+        const newBug = {
+            ...bug,
+            description: bugTitle,
+            severity: bugSeverity
+        }
 
 
-
-
+        bugStore.saveBug(newBug);
+        popupStore.closePopup();
+    }
 
     return (
         <>
-
             <div className={`BugOverview_Container ${bugSeverityColor}`}>
                 <div className='BugOverview_Wrapper'>
                     <div className='BugOverview_TitleHeader'>
@@ -88,7 +98,7 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
                         <div className='BugOverview_SeverityContainer'>
                             <p className='BugOverview_SeverityTitle'>Severity</p>
                             <ReactDropdown options={Object.values(BUG_SERVERITY)}
-                                onChange={(e) => handleSetBugSeverity(e.value)}
+                                onChange={(e) => handleSetBugSeverity(e)}
                                 placeholderClassName='BugOverview_Placeholder'
                                 className='BugOverview_SeverityDropdown'
                                 controlClassName='BugOverview_SeverityDropdownControl'
@@ -101,6 +111,14 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
 
                         </div>
                     </div>
+                    <div className='BugOverview_ButtonContainer'>
+                        <div className='BugOverview_Button' onClick={() => popupStore.closePopup()}>
+                            Close
+                        </div>
+                        <div className='BugOverview_Button' onClick={() => handleSave()}>
+                            Save
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className='BugOverview_Background' onClick={popupStore.closePopup}>
@@ -109,4 +127,4 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
     )
 }
 
-export default BugOverviewComponent
+export default observer(BugOverviewComponent)

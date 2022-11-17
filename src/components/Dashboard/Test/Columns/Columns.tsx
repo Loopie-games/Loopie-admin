@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react'
 import { Draggable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
 import { Bug } from '../../../../models/bugs/bugsInterfaces';
@@ -40,4 +41,4 @@ const Columns = ({ provided, snapshot, column }: ColumnProps) => {
     )
 }
 
-export default Columns
+export default observer(Columns)
