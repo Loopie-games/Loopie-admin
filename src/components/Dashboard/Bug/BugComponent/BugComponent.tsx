@@ -2,16 +2,20 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import ReactDropdown from 'react-dropdown'
-import { Bug, BUG_SERVERITY, BUG_SORT_BY, BUG_STATUS } from '../../../../models/bugs/bugsInterfaces'
+import {Bug, BUG_SERVERITY, BUG_SORT_BY, BUG_STATUS, BugReport} from '../../../../models/bugs/bugsInterfaces'
 import { useStore } from '../../../../stores/store'
 import Icon from '../../../Shared/icon/Icon'
 import './BugComponent.scss'
-const BugComponent = (data: Bug) => {
+const BugComponent = (bugReport: BugReport) => {
     const { bugStore, authStore } = useStore()
 
-    
+    const getCurrentPath = () => {
+        const path = window.location.pathname
+        return path
+    }
+    /*
     const getSeverity = () => {
-        switch (data.severity) {
+        switch (bugReport.severity) {
             case BUG_SERVERITY.SEVERE:
                 return 'Bug_Severe'
             case BUG_SERVERITY.MAJOR:
@@ -26,48 +30,46 @@ const BugComponent = (data: Bug) => {
     }
 
 
-    const getCurrentPath = () => {
-        const path = window.location.pathname
-        return path
-    }
+
+
+
 
     const handleAssign = () => {
         console.log('Assign')
         console.log(authStore.user);
 
-        bugStore.claimBug(data.id, authStore.user)
-        console.log(data.asignee);
+        bugStore.claimBug(bugReport.id, authStore.user)
+        console.log(bugReport.asignee);
     }
 
     const handleChangeStatus = (e: any) => {
         console.log(e.value);
-        bugStore.changeStatus(data.id, e.value)
+        bugStore.changeStatus(bugReport.id, e.value)
     }
 
     const handleDelete = () => {
         console.log('Delete')
-        bugStore.deleteBug(data.id)
+        bugStore.deleteBug(bugReport.id)
     }
-    
-    return (
+   return (
         <div className='BugComponent_Container'>
             <div className={`BugComponent_SeverityContainer ${getSeverity()}`}></div>
             <div className={`BugComponent_RestContainer ${getCurrentPath() === '/bug' ? 'BugComponent_OnSite' : 'BugComponent_OffSite'}`}>
                 <div className='BugComponent_DescriptionContainer'>
                     <span className='BugComponent_Description'>
-                        {data.description}
+                        {bugReport.description}
                     </span>
                 </div>
                 {getCurrentPath() === '/bug' && <>
                     <div className='BugComponent_StatusContainer'>
-                        <ReactDropdown onChange={handleChangeStatus} className='BugComponent_StatusDropdown' controlClassName='BugComponent_StatusDropdownControl' menuClassName='BugComponent_StatusDropdownMenu' options={Object.values(BUG_STATUS)} value={data.status} />
+                        <ReactDropdown onChange={handleChangeStatus} className='BugComponent_StatusDropdown' controlClassName='BugComponent_StatusDropdownControl' menuClassName='BugComponent_StatusDropdownMenu' options={Object.values(BUG_STATUS)} value={bugReport.status} />
 
                     </div>
 
                     <div className='BugComponent_AssigneeContainer'>
-                        {data.asignee === null ?
+                        {bugReport.asignee === null ?
                             <button className='BugComponent_ClaimButton' onClick={handleAssign}>Claim</button> :
-                            <div className='BugComponent_Assignee'>{data.asignee}</div>
+                            <div className='BugComponent_Assignee'>{bugReport.asignee}</div>
                         }
                     </div>
                     <div className='BugComponent_MoreContainer' onClick={handleDelete}>
@@ -76,6 +78,19 @@ const BugComponent = (data: Bug) => {
 
                 </>
                 }
+            </div>
+        </div>
+    )
+     */
+    
+    return (
+        <div className='BugComponent_Container'>
+            <div className={`BugComponent_RestContainer ${getCurrentPath() === '/bug' ? 'BugComponent_OnSite' : 'BugComponent_OffSite'}`}>
+                <div className='BugComponent_DescriptionContainer'>
+                    <span className='BugComponent_Description'>
+                       {bugReport.starId?.length == 0 ? ' [ ] ': ' [X] '} {bugReport.title}
+                    </span>
+                </div>
             </div>
         </div>
     )

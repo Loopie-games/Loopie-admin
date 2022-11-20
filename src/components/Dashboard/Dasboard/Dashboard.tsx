@@ -1,19 +1,28 @@
 
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bug, BUG_SERVERITY, BUG_STATUS } from '../../../models/bugs/bugsInterfaces'
+import {Bug, BUG_SERVERITY, BUG_STATUS, BugReport} from '../../../models/bugs/bugsInterfaces'
 import { useStore } from '../../../stores/store'
 import BugComponent from '../Bug/BugComponent/BugComponent'
 import './Dashboard.scss'
 
 const Dashboard = () => {
   const navigate = useNavigate()
-  const {bugStore} = useStore();
+  const {bugStore, bugReportStore} = useStore();
+  const [bugReports, setBugReports] = useState <BugReport[]>([]);
 
   const navigateTo = (path: string) => {
     navigate(path)
   }
+
+  const initBugReports = async () => {
+    setBugReports(await bugReportStore.getAll())
+  }
+  useEffect(()=>{
+    initBugReports()
+
+  }, [])
 
 
 
@@ -31,7 +40,7 @@ const Dashboard = () => {
               <div className='DashboardComponent_Line'></div>
             </div>
             <div className='DashboardComponent_ContentContainer'>
-              {bugStore.bugs.map((bug) => {
+              {bugReports.map((bug) => {
                 return <BugComponent {...bug} />
               })}
             </div>
