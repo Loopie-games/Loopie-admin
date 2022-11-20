@@ -42,7 +42,6 @@ const Cards = ({ provided, snapshot, item }: CardProps) => {
 
     const findAssignee = (assignee: SimpleUserDTO) => {
         if (assignee !== null && assignee !== undefined) {
-            console.log(assignee);
             return (assignee.id === authStore.user?.id)
         }
         return false;
