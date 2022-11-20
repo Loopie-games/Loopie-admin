@@ -10,7 +10,7 @@ import './BugTaskComponent.scss'
 
 
 const BugTask = () => {
-    const { popupStore, bugStore } = useStore();
+    const { popupStore, bugStore, authStore } = useStore();
     const [bugTitle, setBugTitle] = React.useState('');
     const [bugDescription, setBugDescription] = React.useState('');
     const [bugSeverity, setBugSeverity] = React.useState<BUG_SERVERITY>();
@@ -68,6 +68,13 @@ const BugTask = () => {
         popupStore.closePopup();
     }
 
+    const handleAddAssignee = (user: SimpleUserDTO) => {
+        setBugAssignees([...bugAssignees, user]);
+        console.log(bugAssignees);
+
+    }
+
+
     return (
         <>
             <div className={`BugOverview_Container ${bugSeverityColor}`}>
@@ -88,9 +95,19 @@ const BugTask = () => {
                         <div className='BugOverview_AssigneesContainer'>
                             <p className='BugOverview_AssigneesTitle'>Assignees</p>
                             <div className='BugOverview_AssigneesCardsContainer'>
-                                <div className='BugOverview_AssigneesCard'>
-                                    <p className='BugOverview_AssigneesCardText'> GULLEROD4</p>
+                                {bugAssignees.length > 0 ? bugAssignees.map((assignee, index) => {
+                                    return (
+
+                                        <div className='BugOverview_AssigneesCard' key={index}>
+                                            <p className='BugOverview_AssigneesCardText'>
+                                                {assignee.username}
+                                            </p>
+                                        </div>
+                                    )
+                                }) : <div className='BugOverview_AssigneesCard' onClick={() => handleAddAssignee(authStore.user)}>
+                                    <p className='BugOverview_AssigneesCardText'>Add Me</p>
                                 </div>
+                                }
                             </div>
                         </div>
                         <div className='BugOverview_SeverityContainer'>

@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import ReactDropdown from 'react-dropdown'
 import { Bug, BUG_SERVERITY } from '../../../models/bugs/bugsInterfaces'
+import { SimpleUserDTO } from '../../../models/user/userInterface'
 import { useStore } from '../../../stores/store'
 import Icon from '../../Shared/icon/Icon'
 import './BugOverviewComponent.scss'
@@ -12,7 +13,7 @@ export interface BugOverviewComponentProps {
 
 
 const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
-    const { popupStore, bugStore } = useStore();
+    const { popupStore, bugStore, authStore } = useStore();
     const [bugTitle, setBugTitle] = React.useState(bug.title);
     const [bugDescription, setBugDescription] = React.useState(bug.description);
     const [bugSeverity, setBugSeverity] = React.useState(bug.severity);
@@ -71,12 +72,20 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
             ...bug,
             title: bugTitle,
             description: bugDescription,
-            severity: bugSeverity
+            severity: bugSeverity,
+            asignees: bugAssignees,
+
         }
 
 
         bugStore.saveBug(newBug);
         popupStore.closePopup();
+    }
+
+    const handleAddAssignee = (user: SimpleUserDTO) => {
+        setBugAssignees([...bugAssignees, user]);
+        console.log(bugAssignees);
+
     }
 
     return (
@@ -99,15 +108,19 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
                         <div className='BugOverview_AssigneesContainer'>
                             <p className='BugOverview_AssigneesTitle'>Assignees</p>
                             <div className='BugOverview_AssigneesCardsContainer'>
-                                {bugAssignees.map((assignee, index) => {
+                                {bugAssignees.length > 0 ? bugAssignees.map((assignee, index) => {
                                     return (
-                                        <div className='BugOverview_AssigneesCard'>
-                                            <p className='BugOverview_AssigneesCardText' key={index}>
+
+                                        <div className='BugOverview_AssigneesCard' key={index}>
+                                            <p className='BugOverview_AssigneesCardText'>
                                                 {assignee.username}
                                             </p>
                                         </div>
                                     )
-                                })}
+                                }) : <div className='BugOverview_AssigneesCard' onClick={() => handleAddAssignee(authStore.user)}>
+                                    <p className='BugOverview_AssigneesCardText'>Add Me</p>
+                                </div>
+                                }
                             </div>
                         </div>
                         <div className='BugOverview_SeverityContainer'>

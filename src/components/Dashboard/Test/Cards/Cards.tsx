@@ -71,11 +71,11 @@ const Cards = ({ provided, snapshot, item }: CardProps) => {
                 <div className='Cards_ClaimContainer'>
                     {item.asignees.length > 0 ?
                         <>
-                            {item.asignees.map((asignee) => {
+                            {item.asignees.map((asignee, index) => {
                                 return (
                                     <>
                                         {findAssignee(asignee) ?
-                                            < p className='Cards_Claimed' > {asignee.username}</p> :
+                                            < p className='Cards_Claimed' key={index} > {asignee.username}</p> :
                                             <div className={`Cards_Claim `} onClick={handleClaim}>
                                                 < Icon name="circle_plus" />
                                             </div>
