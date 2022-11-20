@@ -8,34 +8,34 @@ import securityService from "../services/securityService";
 export class BugStore {
     @observable bugs: Bug[] = [{
         id: 1,
+        title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque mollitia sapiente a veniam, facere saepe dolorum sequi aperiam soluta maiores asperiores, voluptatibus consequuntur, repudiandae culpa dolore dolores. Ipsam, exercitationem provident!',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque mollitia sapiente a veniam, facere saepe dolorum sequi aperiam soluta maiores asperiores, voluptatibus consequuntur, repudiandae culpa dolore dolores. Ipsam, exercitationem provident!',
         severity: BUG_SERVERITY.SEVERE,
-        status: BUG_STATUS.NEW,
-        asignee: null,
+        asignees: [],
         createdDate: new Date(),
     },
     {
         id: 2,
+        title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque mollitia sapiente a veniam, facere saepe dolorum sequi aperiam soluta maiores asperiores, voluptatibus consequuntur, repudiandae culpa dolore dolores. Ipsam, exercitationem provident!',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque mollitia sapiente a veniam, facere saepe dolorum sequi aperiam soluta maiores asperiores, voluptatibus consequuntur, repudiandae culpa dolore dolores. Ipsam, exercitationem provident!',
         severity: BUG_SERVERITY.MAJOR,
-        status: BUG_STATUS.NEW,
-        asignee: 'test',
+        asignees: [],
         createdDate: new Date(),
     },
     {
         id: 3,
+        title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque mollitia sapiente a veniam, facere saepe dolorum sequi aperiam soluta maiores asperiores, voluptatibus consequuntur, repudiandae culpa dolore dolores. Ipsam, exercitationem provident!',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque mollitia sapiente a veniam, facere saepe dolorum sequi aperiam soluta maiores asperiores, voluptatibus consequuntur, repudiandae culpa dolore dolores. Ipsam, exercitationem provident!',
         severity: BUG_SERVERITY.MINOR,
-        status: BUG_STATUS.NEW,
-        asignee: 'test',
+        asignees: [],
         createdDate: new Date(),
     },
     {
         id: 4,
+        title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque mollitia sapiente a veniam, facere saepe dolorum sequi aperiam soluta maiores asperiores, voluptatibus consequuntur, repudiandae culpa dolore dolores. Ipsam, exercitationem provident!',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque mollitia sapiente a veniam, facere saepe dolorum sequi aperiam soluta maiores asperiores, voluptatibus consequuntur, repudiandae culpa dolore dolores. Ipsam, exercitationem provident!',
         severity: BUG_SERVERITY.TRIVIAL,
-        status: BUG_STATUS.NEW,
-        asignee: 'test',
+        asignees: [],
         createdDate: new Date(),
     },
     ];
@@ -61,60 +61,18 @@ export class BugStore {
 
     @action claimBug = async (id: number, user: any) => {
         console.log('claimBug');
-        this.bugs.find(bug => bug.id === id)!.asignee = user.username
+        this.bugs.find(bug => bug.id === id)!.asignees.push(user);
 
         console.log(this.bugs);
 
     }
 
-    @action changeStatus = async (id: number, status: BUG_STATUS) => {
-        console.log('changeStatus');
-        this.bugs.find(bug => bug.id === id)!.status = status
-        console.log(this.bugs);
-
-    }
 
     @action deleteBug = async (id: number) => {
         console.log('deleteBug');
         this.bugs = this.bugs.filter(bug => bug.id !== id)
     }
 
-    @action sortBugs = async (sortType: BUG_SORT_BY) => {
-        console.log('sortBugs');
-
-
-        switch (sortType) {
-            case BUG_SORT_BY.SEVERITY:
-                this.bugs = this.bugs.slice().sort((a, b) => {
-                    return Object.keys(BUG_SERVERITY).indexOf(a.severity!) - Object.keys(BUG_SERVERITY).indexOf(b.severity!)
-                })
-
-                console.log('severity');
-
-                break;
-            case BUG_SORT_BY.STATUS:
-                this.bugs = this.bugs.slice().sort((a, b) => {
-                    return Object.values(BUG_STATUS).indexOf(a.status) - Object.values(BUG_STATUS).indexOf(b.status)
-                })
-
-                console.log('status');
-                break;
-            case BUG_SORT_BY.ASIGNEE:
-                this.bugs = this.bugs.slice().sort((a, b) => {
-                    return (a.asignee || '').localeCompare(b.asignee || '')
-                })
-                console.log('asignee');
-                break;
-            case BUG_SORT_BY.CREATED_DATE:
-                this.bugs = this.bugs.slice().sort((a, b) => {
-                    return a.createdDate.getTime() - b.createdDate.getTime()
-                })
-                console.log('createdDate');
-                break;
-            default:
-                break;
-        }
-    }
 
     @action searchBugs = (searchText: string) => {
         return this.bugs.filter(bug => {
@@ -136,6 +94,11 @@ export class BugStore {
         }
         //const response = await BugReportService.save(bug);
         //console.log(response.data);
+    }
+
+    @action newBug = (bug: Bug) => {
+        console.log('newBug');
+        this.bugs.push(bug)
     }
 
 }

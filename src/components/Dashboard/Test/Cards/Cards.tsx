@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react'
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 import { Bug, BUG_SERVERITY } from '../../../../models/bugs/bugsInterfaces';
+import { SimpleUserDTO } from '../../../../models/user/userInterface';
 import { useStore } from '../../../../stores/store';
 import BugOverviewComponent from '../../../Popups/BugOverview/BugOverviewComponent';
 import Icon from '../../../Shared/icon/Icon';
@@ -39,6 +40,13 @@ const Cards = ({ provided, snapshot, item }: CardProps) => {
         bugStore.claimBug(item.id, authStore.user!);
     }
 
+    const findAssignee = (assignee: SimpleUserDTO) => {
+        if (assignee !== null && assignee !== undefined) {
+            console.log(assignee);
+            return (assignee.id === authStore.user?.id)
+        }
+        return false;
+    }
 
 
     return (
@@ -57,20 +65,34 @@ const Cards = ({ provided, snapshot, item }: CardProps) => {
             <div className='Cards_Wrapper'>
 
                 <div className='Cards_ContentContainer' onClick={() => popupStore.openBugOverview(
-                <BugOverviewComponent bug={item} />
-                , item)}>
-                    {item.description}
+                    <BugOverviewComponent bug={item} />
+                    , item)}>
+                    {item.title}
                 </div>
                 <div className='Cards_ClaimContainer'>
-
-                    {item.asignee ? <p className='Cards_Claimed'>{item.asignee}</p> :
+                    {item.asignees.length > 0 ?
+                        <>
+                            {item.asignees.map((asignee) => {
+                                return (
+                                    <>
+                                        {findAssignee(asignee) ?
+                                            < p className='Cards_Claimed' > {asignee.username}</p> :
+                                            <div className={`Cards_Claim `} onClick={handleClaim}>
+                                                < Icon name="circle_plus" />
+                                            </div>
+                                        }
+                                    </>
+                                )
+                            }
+                            )}
+                        </> :
                         <div className={`Cards_Claim `} onClick={handleClaim}>
                             < Icon name="circle_plus" />
                         </div>
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

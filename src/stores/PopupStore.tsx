@@ -21,6 +21,12 @@ export class PopupStore {
         this.popupOpen = true;
     }
 
+    @action openPopup = (content: JSX.Element) => {
+        this.popupContent = content;
+        this.popupOpen = true;
+
+    }
+
     @action closePopup = () => {
         this.popupOpen = false;
 

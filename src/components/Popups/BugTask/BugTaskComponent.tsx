@@ -2,45 +2,31 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import ReactDropdown from 'react-dropdown'
 import { Bug, BUG_SERVERITY } from '../../../models/bugs/bugsInterfaces'
+import { SimpleUserDTO } from '../../../models/user/userInterface'
 import { useStore } from '../../../stores/store'
 import Icon from '../../Shared/icon/Icon'
-import './BugOverviewComponent.scss'
-
-export interface BugOverviewComponentProps {
-    bug: Bug;
-}
+import './BugTaskComponent.scss'
 
 
-const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
+
+const BugTask = () => {
     const { popupStore, bugStore } = useStore();
-    const [bugTitle, setBugTitle] = React.useState(bug.title);
-    const [bugDescription, setBugDescription] = React.useState(bug.description);
-    const [bugSeverity, setBugSeverity] = React.useState(bug.severity);
-    const [bugSeverityColor, setBugSeverityColor] = React.useState<string>('');
-    const [bugAssignees, setBugAssignees] = React.useState(bug.asignees);
+    const [bugTitle, setBugTitle] = React.useState('');
+    const [bugDescription, setBugDescription] = React.useState('');
+    const [bugSeverity, setBugSeverity] = React.useState<BUG_SERVERITY>();
+    const [bugSeverityColor, setBugSeverityColor] = React.useState('');
+    const [bugAssignees, setBugAssignees] = React.useState<SimpleUserDTO[]>([]);
+
     const handleSetBugSeverity = (severity: any) => {
-        console.log(severity);
         setBugSeverity(severity.value);
-        console.log(bugStore.bugs);
     }
 
     useEffect(() => {
-        console.log(bug.asignees);
-
-    }, [])
-
-
-    useEffect(() => {
-        console.log(bugSeverity);
         getSeverityColor();
-        console.log(bug);
-
     }, [bugSeverity])
 
 
     const getSeverityColor = () => {
-        console.log(bugSeverity);
-
         switch (bugSeverity) {
             case BUG_SERVERITY.SEVERE:
                 setBugSeverityColor('BugOverviewComponent_Severe')
@@ -67,15 +53,18 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
     }
 
     const handleSave = () => {
-        const newBug = {
-            ...bug,
+        const newBug: Bug = {
+            id: Math.random(),
             title: bugTitle,
             description: bugDescription,
-            severity: bugSeverity
+            severity: bugSeverity !== undefined ? bugSeverity : BUG_SERVERITY.TRIVIAL,
+            asignees: bugAssignees,
+            createdDate: new Date(),
         }
 
+        console.log(newBug);
 
-        bugStore.saveBug(newBug);
+        bugStore.newBug(newBug);
         popupStore.closePopup();
     }
 
@@ -84,7 +73,7 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
             <div className={`BugOverview_Container ${bugSeverityColor}`}>
                 <div className='BugOverview_Wrapper'>
                     <div className='BugOverview_TitleHeader'>
-                        <div className='BugOverview_Title'>Bug Overview</div>
+                        <div className='BugOverview_Title'>New Bug Task</div>
                         <div className='BugOverview_CloseButton' onClick={() => popupStore.closePopup()}>
                             <Icon name='cross' />
                         </div>
@@ -99,15 +88,9 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
                         <div className='BugOverview_AssigneesContainer'>
                             <p className='BugOverview_AssigneesTitle'>Assignees</p>
                             <div className='BugOverview_AssigneesCardsContainer'>
-                                {bugAssignees.map((assignee, index) => {
-                                    return (
-                                        <div className='BugOverview_AssigneesCard'>
-                                            <p className='BugOverview_AssigneesCardText' key={index}>
-                                                {assignee.username}
-                                            </p>
-                                        </div>
-                                    )
-                                })}
+                                <div className='BugOverview_AssigneesCard'>
+                                    <p className='BugOverview_AssigneesCardText'> GULLEROD4</p>
+                                </div>
                             </div>
                         </div>
                         <div className='BugOverview_SeverityContainer'>
@@ -117,9 +100,7 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
                                 placeholderClassName='BugOverview_Placeholder'
                                 className='BugOverview_SeverityDropdown'
                                 controlClassName='BugOverview_SeverityDropdownControl'
-                                menuClassName='BugOverview_SeverityDropdownMenu'
-                                value={Object.keys(BUG_SERVERITY).find((severity) => severity === bugSeverity)}
-                            />
+                                menuClassName='BugOverview_SeverityDropdownMenu' />
                         </div>
                     </div>
                     <div className='BugOverview_RelatedBugReportsContainer'>
@@ -144,4 +125,4 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
     )
 }
 
-export default observer(BugOverviewComponent)
+export default observer(BugTask)
