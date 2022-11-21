@@ -27,6 +27,17 @@
             margin-left: 9px;
             display: flex;
             min-width: 0;
+            align-items: center;
+            gap: 10px;
+
+            .BugComponent_StarContainer {
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
 
             .BugComponent_Description {
                 text-overflow: ellipsis;
@@ -37,6 +48,8 @@
                 font-weight: 400;
                 font-size: 14px;
                 color: #fff;
+                justify-content: center;
+                align-items: center;
             }
         }
 
@@ -157,11 +170,10 @@
     align-items: center;
 }
 
-.BugComponent_OnSite{
-    
+.BugComponent_OnSite {
     grid-template-columns: 1fr 150px 80px 24px;
 }
 
-.BugComponent_OffSite{
+.BugComponent_OffSite {
     grid-template-columns: 1fr;
 }

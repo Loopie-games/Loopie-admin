@@ -1,18 +1,33 @@
 
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDropdown from 'react-dropdown'
-import {Bug, BUG_SERVERITY, BUG_SORT_BY, BUG_STATUS, BugReport} from '../../../../models/bugs/bugsInterfaces'
+import { Bug, BUG_SERVERITY, BUG_SORT_BY, BUG_STATUS, BugReport } from '../../../../models/bugs/bugsInterfaces'
 import { useStore } from '../../../../stores/store'
 import Icon from '../../../Shared/icon/Icon'
 import './BugComponent.scss'
 const BugComponent = (bugReport: BugReport) => {
-    const { bugStore, authStore } = useStore()
+    const { bugStore, authStore, bugReportStore } = useStore()
+    const [isStarred, setIsStarred] = React.useState(false);
 
     const getCurrentPath = () => {
         const path = window.location.pathname
         return path
     }
+
+    useEffect(() => {
+        setIsStarred(
+            bugReportStore.starredBugReports.some((bug) => bug.id === bugReport.id)
+        )
+
+    }, [])
+
+    const handleStar = () => {
+        bugReportStore.starBugReport(bugReport);
+        setIsStarred(bugReportStore.isStarred(bugReport));
+
+    }
+
     /*
     const getSeverity = () => {
         switch (bugReport.severity) {
@@ -82,13 +97,19 @@ const BugComponent = (bugReport: BugReport) => {
         </div>
     )
      */
-    
+
     return (
         <div className='BugComponent_Container'>
             <div className={`BugComponent_RestContainer ${getCurrentPath() === '/bug' ? 'BugComponent_OnSite' : 'BugComponent_OffSite'}`}>
                 <div className='BugComponent_DescriptionContainer'>
+                    <div className='BugComponent_StarContainer' onClick={() => handleStar()}>
+                        {isStarred ?
+                            <Icon name='star_filled' /> :
+                            <Icon name='star_outline' />
+                        }
+                    </div>
                     <span className='BugComponent_Description'>
-                       {bugReport.starId?.length == 0 ? ' [ ] ': ' [X] '} {bugReport.title}
+                        {bugReport.title}
                     </span>
                 </div>
             </div>
