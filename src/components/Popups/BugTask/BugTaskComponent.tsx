@@ -1,21 +1,23 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import ReactDropdown from 'react-dropdown'
-import { Bug, BUG_SERVERITY } from '../../../models/bugs/bugsInterfaces'
+import { Bug, BugReport, BUG_SERVERITY } from '../../../models/bugs/bugsInterfaces'
 import { SimpleUserDTO } from '../../../models/user/userInterface'
 import { useStore } from '../../../stores/store'
 import Icon from '../../Shared/icon/Icon'
+import StarredBugsComponent from '../StarredBugs/StarredBugsComponent'
 import './BugTaskComponent.scss'
 
 
 
 const BugTask = () => {
-    const { popupStore, bugStore, authStore } = useStore();
+    const { popupStore, bugStore, authStore, bugReportStore } = useStore();
     const [bugTitle, setBugTitle] = React.useState('');
     const [bugDescription, setBugDescription] = React.useState('');
     const [bugSeverity, setBugSeverity] = React.useState<BUG_SERVERITY>();
     const [bugSeverityColor, setBugSeverityColor] = React.useState('');
     const [bugAssignees, setBugAssignees] = React.useState<SimpleUserDTO[]>([]);
+    const [relatedBugs, setRelatedBugs] = React.useState<BugReport[]>([]);
 
     const handleSetBugSeverity = (severity: any) => {
         setBugSeverity(severity.value);
@@ -24,6 +26,10 @@ const BugTask = () => {
     useEffect(() => {
         getSeverityColor();
     }, [bugSeverity])
+
+    useEffect(() => {
+        setRelatedBugs(bugReportStore.selectedBugReports);
+    }, [bugReportStore.selectedBugReports])
 
 
     const getSeverityColor = () => {
@@ -60,18 +66,23 @@ const BugTask = () => {
             severity: bugSeverity !== undefined ? bugSeverity : BUG_SERVERITY.TRIVIAL,
             asignees: bugAssignees,
             createdDate: new Date(),
+            relatedBugs: relatedBugs,
         }
 
         console.log(newBug);
 
         bugStore.newBug(newBug);
-        popupStore.closePopup();
+        popupStore.closePopup(0)
     }
 
     const handleAddAssignee = (user: SimpleUserDTO) => {
         setBugAssignees([...bugAssignees, user]);
         console.log(bugAssignees);
 
+    }
+
+    const handleOpenStarredBugs = () => {
+        popupStore.openPopup(<StarredBugsComponent />);
     }
 
 
@@ -81,7 +92,7 @@ const BugTask = () => {
                 <div className='BugOverview_Wrapper'>
                     <div className='BugOverview_TitleHeader'>
                         <div className='BugOverview_Title'>New Bug Task</div>
-                        <div className='BugOverview_CloseButton' onClick={() => popupStore.closePopup()}>
+                        <div className='BugOverview_CloseButton' onClick={() => popupStore.closePopup(0)}>
                             <Icon name='cross' />
                         </div>
                     </div>
@@ -122,12 +133,23 @@ const BugTask = () => {
                     </div>
                     <div className='BugOverview_RelatedBugReportsContainer'>
                         <p className='BugOverview_RelatedBugReportsTitle'>Related bug reports</p>
-                        <div className='BugOverview_RelatedBugReportsCardsContainer'>
-
+                        <div className='BugTask_RelatedBugReportsCardsContainer'>
+                            <div className='BugTask_AddCardContainer' onClick={() => handleOpenStarredBugs()}>
+                                <Icon name="plus" />
+                            </div>
+                            {relatedBugs.length > 0 && relatedBugs.map((bug, index) => {
+                                return (
+                                    <div className='BugOverview_RelatedBugReportsCard' key={index}>
+                                        <p className='BugOverview_RelatedBugReportsCardText'>
+                                            {bug.title}
+                                        </p>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                     <div className='BugOverview_ButtonContainer'>
-                        <div className='BugOverview_Button' onClick={() => popupStore.closePopup()}>
+                        <div className='BugOverview_Button' onClick={() => popupStore.closePopup(0)}>
                             Close
                         </div>
                         <div className='BugOverview_Button' onClick={() => handleSave()}>
@@ -136,7 +158,7 @@ const BugTask = () => {
                     </div>
                 </div>
             </div>
-            <div className='BugOverview_Background' onClick={popupStore.closePopup}>
+            <div className='BugOverview_Background' onClick={() => popupStore.closePopup(0)}>
             </div>
         </>
     )

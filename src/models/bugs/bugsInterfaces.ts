@@ -23,6 +23,7 @@ export interface Bug {
     severity: BUG_SERVERITY | null;
     asignees: SimpleUserDTO[]
     createdDate: Date;
+    relatedBugs: BugReport[];
 }
 
 export enum BUG_SORT_BY {

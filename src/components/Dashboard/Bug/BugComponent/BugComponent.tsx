@@ -104,8 +104,12 @@ const BugComponent = (bugReport: BugReport) => {
                 <div className='BugComponent_DescriptionContainer'>
                     <div className='BugComponent_StarContainer' onClick={() => handleStar()}>
                         {isStarred ?
-                            <Icon name='star_filled' /> :
-                            <Icon name='star_outline' />
+                            <div className='BugComponent_StarFilled'>
+                                <Icon name='star_filled' />
+                            </div> :
+                            <div className='BugComponent_StarOutline'>
+                                <Icon name='star_outline' />
+                            </div>
                         }
                     </div>
                     <span className='BugComponent_Description'>

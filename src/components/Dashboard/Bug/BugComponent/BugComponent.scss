@@ -37,6 +37,28 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+                .BugComponent_StarFilled{
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    img{
+                        filter: var(--yellow-filter)
+                    }
+                }
+                .BugComponent_StarOutline{
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    img{
+                        filter: var(--inactive-link)
+                    }
+                }
             }
 
             .BugComponent_Description {

@@ -9,28 +9,24 @@ export class PopupStore {
     @observable popupOpen = false;
     @observable popupContent: JSX.Element | null = null;
 
+    @observable popups: { id: number, element: JSX.Element, isOpen: boolean }[] = []
+
 
     constructor() {
         makeAutoObservable(this)
     }
 
     @action openBugOverview = (content: JSX.Element, bug: Bug) => {
-        this.popupContent = content;
-        this.popupContent.props.bug = bug;
-
-        this.popupOpen = true;
+        this.popups.push({ id: this.popups.length, element: content, isOpen: true })
     }
 
     @action openPopup = (content: JSX.Element) => {
-        this.popupContent = content;
-        this.popupOpen = true;
-
+        this.popups.push({ id: this.popups.length, element: content, isOpen: true })
     }
 
-    @action closePopup = () => {
-        this.popupOpen = false;
-
-        this.popupContent = null;
+    @action closePopup = (id: number) => {
+        console.log(this.popups.find((popup) => popup.id === id));
+        this.popups = this.popups.filter((popup) => popup.id !== id)
     }
 
 }

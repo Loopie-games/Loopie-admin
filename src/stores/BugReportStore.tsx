@@ -5,7 +5,7 @@ import BugReportService from "../services/BugReportService";
 export class BugReportStore {
     @observable bugReports: BugReport[] = [];
     @observable starredBugReports: BugReport[] = [];
-
+    @observable selectedBugReports: BugReport[] = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -35,5 +35,11 @@ export class BugReportStore {
     isStarred = (bugReport: BugReport) => {
         return this.starredBugReports.some((bug) => bug.id === bugReport.id)
     }
+
+    @action
+    setSelectedBugReports = (bugReports: BugReport[]) => {
+        this.selectedBugReports = bugReports;
+    }
+
 
 }

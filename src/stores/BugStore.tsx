@@ -13,6 +13,7 @@ export class BugStore {
         severity: BUG_SERVERITY.SEVERE,
         asignees: [],
         createdDate: new Date(),
+        relatedBugs: [],
     },
     {
         id: 2,
@@ -21,6 +22,7 @@ export class BugStore {
         severity: BUG_SERVERITY.MAJOR,
         asignees: [],
         createdDate: new Date(),
+        relatedBugs: [],
     },
     {
         id: 3,
@@ -29,6 +31,7 @@ export class BugStore {
         severity: BUG_SERVERITY.MINOR,
         asignees: [],
         createdDate: new Date(),
+        relatedBugs: [],
     },
     {
         id: 4,
@@ -37,6 +40,7 @@ export class BugStore {
         severity: BUG_SERVERITY.TRIVIAL,
         asignees: [],
         createdDate: new Date(),
+        relatedBugs: [],
     },
     ];
 

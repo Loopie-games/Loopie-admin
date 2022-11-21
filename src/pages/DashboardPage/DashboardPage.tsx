@@ -38,9 +38,11 @@ const DashboardPage = () => {
 
     return (
         <>
-            {popupStore.popupOpen &&
-                popupStore.popupContent
-            }
+            {popupStore.popups.map((popup, index) => (
+                <>
+                    {popup.element}
+                </>
+            ))}
             <div className='Dashboard_Container'>
                 <div className='Dashboard_NavContainer'>
                     <Navbar />

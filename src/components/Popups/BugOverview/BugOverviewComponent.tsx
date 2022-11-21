@@ -5,6 +5,7 @@ import { Bug, BUG_SERVERITY } from '../../../models/bugs/bugsInterfaces'
 import { SimpleUserDTO } from '../../../models/user/userInterface'
 import { useStore } from '../../../stores/store'
 import Icon from '../../Shared/icon/Icon'
+import StarredBugsComponent from '../StarredBugs/StarredBugsComponent'
 import './BugOverviewComponent.scss'
 
 export interface BugOverviewComponentProps {
@@ -19,6 +20,8 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
     const [bugSeverity, setBugSeverity] = React.useState(bug.severity);
     const [bugSeverityColor, setBugSeverityColor] = React.useState<string>('');
     const [bugAssignees, setBugAssignees] = React.useState(bug.asignees);
+    const [relatedBugs, setRelatedBugs] = React.useState(bug.relatedBugs);
+
     const handleSetBugSeverity = (severity: any) => {
         console.log(severity);
         setBugSeverity(severity.value);
@@ -79,7 +82,7 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
 
 
         bugStore.saveBug(newBug);
-        popupStore.closePopup();
+        popupStore.closePopup(0)
     }
 
     const handleAddAssignee = (user: SimpleUserDTO) => {
@@ -88,13 +91,17 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
 
     }
 
+    const handleOpenStarredBugs = () => {
+        popupStore.openPopup(<StarredBugsComponent />);
+    }
+
     return (
         <>
             <div className={`BugOverview_Container ${bugSeverityColor}`}>
                 <div className='BugOverview_Wrapper'>
                     <div className='BugOverview_TitleHeader'>
                         <div className='BugOverview_Title'>Bug Overview</div>
-                        <div className='BugOverview_CloseButton' onClick={() => popupStore.closePopup()}>
+                        <div className='BugOverview_CloseButton' onClick={() => popupStore.closePopup(0)}>
                             <Icon name='cross' />
                         </div>
                     </div>
@@ -138,11 +145,22 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
                     <div className='BugOverview_RelatedBugReportsContainer'>
                         <p className='BugOverview_RelatedBugReportsTitle'>Related bug reports</p>
                         <div className='BugOverview_RelatedBugReportsCardsContainer'>
-
+                            <div className='BugTask_AddCardContainer' onClick={() => handleOpenStarredBugs()}>
+                                <Icon name="plus" />
+                            </div>
+                            {relatedBugs.length > 0 && relatedBugs.map((bug, index) => {
+                                return (
+                                    <div className='BugOverview_RelatedBugReportsCard' key={index}>
+                                        <p className='BugOverview_RelatedBugReportsCardText'>
+                                            {bug.title}
+                                        </p>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                     <div className='BugOverview_ButtonContainer'>
-                        <div className='BugOverview_Button' onClick={() => popupStore.closePopup()}>
+                        <div className='BugOverview_Button' onClick={() => popupStore.closePopup(0)}>
                             Close
                         </div>
                         <div className='BugOverview_Button' onClick={() => handleSave()}>
@@ -151,7 +169,7 @@ const BugOverviewComponent = ({ bug }: BugOverviewComponentProps) => {
                     </div>
                 </div>
             </div>
-            <div className='BugOverview_Background' onClick={popupStore.closePopup}>
+            <div className='BugOverview_Background' onClick={() => popupStore.closePopup(0)}>
             </div>
         </>
     )

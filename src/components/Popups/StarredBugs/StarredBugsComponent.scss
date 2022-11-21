@@ -1,17 +1,18 @@
-.BugOverview_Background {
+.StarredBug_Background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 2;
     backdrop-filter: blur(4px);
 }
 
-.BugOverview_Container {
+.StarredBug_Container {
     width: 800px;
-    height: fit-content;
+    max-height: 500px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     background-color: rgba($color: #ffffff, $alpha: 0.1);
@@ -20,9 +21,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 3;
     align-items: center;
-    justify-content: center;
+
+    backdrop-filter: blur(4px);
 
     &::after {
         position: absolute;
@@ -36,15 +38,15 @@
         border-radius: inherit;
     }
 
-    .BugOverview_Wrapper {
+    .StarredBug_Wrapper {
         display: flex;
         flex-direction: column;
-        height: fit-content;
+        flex: 1;
         width: calc(100% - 30px);
         position: relative;
         z-index: 2;
 
-        .BugOverview_TitleHeader {
+        .StarredBug_TitleHeader {
             margin-top: 10px;
             display: flex;
             flex-direction: row;
@@ -52,7 +54,7 @@
             height: 20px;
             align-items: center;
 
-            .BugOverview_Title {
+            .StarredBug_Title {
                 font-family: "caviar dreams";
                 font-style: normal;
                 font-weight: 400;
@@ -61,7 +63,7 @@
                 flex: 1;
             }
 
-            .BugOverview_CloseButton {
+            .StarredBug_CloseButton {
                 width: 20px;
                 height: 20px;
                 display: flex;
@@ -83,7 +85,7 @@
             }
         }
 
-        .BugOverview_TitleContainer {
+        .StarredBug_TitleContainer {
             width: 100%;
             height: 100%;
             display: flex;
@@ -93,7 +95,7 @@
             margin-top: 15px;
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.179518) 100%);
             border-radius: 4px;
-            .BugOverview_TitleInput {
+            .StarredBug_TitleInput {
                 flex-grow: 1;
                 flex-basis: 0;
                 height: 100%;
@@ -116,7 +118,7 @@
             }
         }
 
-        .BugOverview_DescriptionContainer {
+        .StarredBug_DescriptionContainer {
             width: 100%;
             height: 100%;
             min-height: 150px;
@@ -126,7 +128,7 @@
             margin-top: 15px;
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.179518) 100%);
             border-radius: 4px;
-            .BugOverview_DescriptionInput {
+            .StarredBug_DescriptionInput {
                 flex-grow: 1;
                 flex-basis: 0;
                 height: 100%;
@@ -151,19 +153,19 @@
             }
         }
 
-        .BugOverview_AssigneeSeverityContainer {
+        .StarredBug_AssigneeSeverityContainer {
             display: flex;
             flex-direction: row;
             width: 100%;
             height: 100%;
             margin-top: 10px;
             gap: 10px;
-            .BugOverview_AssigneesContainer {
+            .StarredBug_AssigneesContainer {
                 display: flex;
                 flex-direction: column;
                 flex: 1;
                 height: 100%;
-                .BugOverview_AssigneesTitle {
+                .StarredBug_AssigneesTitle {
                     font-family: "caviar dreams";
                     font-style: normal;
                     font-weight: 400;
@@ -172,7 +174,7 @@
                     margin-bottom: 5px;
                 }
 
-                .BugOverview_AssigneesCardsContainer {
+                .StarredBug_AssigneesCardsContainer {
                     width: 100%;
                     height: 30px;
                     display: flex;
@@ -187,7 +189,7 @@
                     );
                     border-radius: 4px;
                     align-items: center;
-                    .BugOverview_AssigneesCard {
+                    .StarredBug_AssigneesCard {
                         width: fit-content;
                         height: 20px;
                         display: flex;
@@ -200,7 +202,7 @@
                         padding: 0 10px;
                         cursor: pointer;
 
-                        .BugOverview_AssigneesCardText {
+                        .StarredBug_AssigneesCardText {
                             font-family: "caviar dreams";
                             font-style: normal;
                             font-weight: 400;
@@ -210,13 +212,13 @@
                     }
                 }
             }
-            .BugOverview_SeverityContainer {
+            .StarredBug_SeverityContainer {
                 min-width: 150px;
                 height: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                .BugOverview_SeverityTitle {
+                .StarredBug_SeverityTitle {
                     font-family: "caviar dreams";
                     font-style: normal;
                     font-weight: 400;
@@ -225,7 +227,7 @@
                     margin-bottom: 5px;
                 }
 
-                .BugOverview_SeverityDropdown {
+                .StarredBug_SeverityDropdown {
                     width: 100%;
                     height: 30px;
                     min-height: 30px;
@@ -244,14 +246,61 @@
             }
         }
 
-        .BugOverview_RelatedBugReportsContainer {
+        .StarredBug_RelatedBugReportsContainer {
             display: flex;
             flex-direction: column;
             width: 100%;
-            height: 100%;
-            min-height: 150px;
+            flex: 1;
             margin-top: 15px;
-            .BugOverview_RelatedBugReportsTitle {
+            gap: 10px;
+
+            .StarredBug_SearchContainer {
+                width: 100%;
+                height: 30px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 4px;
+                .StarredBug_SearchIcon {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 10px;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        filter: var(--active-link);
+                    }
+                }
+                .StarredBug_SearchInput {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    outline: none;
+                    background: transparent;
+                    font-family: "caviar dreams";
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #ffffff;
+                    padding-left: 10px;
+                    &::placeholder {
+                        color: #ffffff80;
+                    }
+                }
+                .StarredBug_CrossIcon {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 10px;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        filter: var(--active-link);
+                    }
+                }
+            }
+
+            .StarredBug_RelatedBugReportsTitle {
                 font-family: "caviar dreams";
                 font-style: normal;
                 font-weight: 400;
@@ -262,13 +311,11 @@
 
             .BugTask_RelatedBugReportsCardsContainer {
                 width: 100%;
-                height: 150px;
                 gap: 10px;
                 display: flex;
                 flex-direction: column;
                 flex-wrap: nowrap;
-                overflow-x: auto;
-                overflow-y: hidden;
+                overflow-y: auto;
                 align-items: center;
 
                 .BugTask_AddCardContainer {
@@ -290,22 +337,46 @@
                     }
                 }
 
-                .BugOverview_RelatedBugReportsCard {
+                .StarredBug_RelatedBugReportsCard {
                     width: 100%;
                     height: 30px;
+                    min-height: 30px;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
-                    justify-content: center;
                     background: rgba(255, 255, 255, 0.15);
                     border-radius: 4px;
-                    margin-left: 5px;
-                    .BugOverview_RelatedBugReportsCardText {
+                    cursor: pointer;
+                    gap: 10px;
+                    &:hover > .StarredBug_SelectedContainer > .StarredBug_SelectedIcon {
+                        opacity: 1 !important;
+                    }
+                    .StarredBug_SelectedContainer {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+
+                        .StarredBug_SelectedIcon {
+                            opacity: 0;
+                            transition: opacity 0.2s ease-in-out;
+                            width: 20px;
+                            height: 20px;
+                            margin-left: 10px;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                filter: var(--active-link);
+                            }
+                        }
+                    }
+                    .StarredBug_RelatedBugReportsCardText {
                         font-family: "caviar dreams";
                         font-style: normal;
                         font-weight: 400;
                         font-size: 12px;
                         color: #ffffff;
+                        user-select: none;
                     }
                 }
             }
@@ -313,7 +384,7 @@
     }
 }
 
-.BugOverview_ButtonContainer {
+.StarredBug_ButtonContainer {
     width: 100%;
     height: 30px;
     display: flex;
@@ -323,7 +394,7 @@
     margin: 15px 0;
     gap: 10px;
 
-    .BugOverview_Button {
+    .StarredBug_Button {
         width: 100px;
         height: 30px;
         display: flex;
@@ -358,7 +429,7 @@
     }
 }
 
-.BugOverview_SeverityDropdownMenu {
+.StarredBug_SeverityDropdownMenu {
     width: 100%;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 4px;
@@ -371,7 +442,7 @@
     padding: 5px 0;
     z-index: 2;
 
-    .BugOverview_SeverityDropdownControl {
+    .StarredBug_SeverityDropdownControl {
         width: 100%;
         min-height: 30px;
         display: flex;
@@ -397,7 +468,7 @@
     }
 }
 
-.BugOverview_Placeholder {
+.StarredBug_Placeholder {
     min-height: 30px;
     width: 100%;
     display: flex;
@@ -411,7 +482,7 @@ p {
     padding: 0;
 }
 
-.BugOverviewComponent_Severe {
+.StarredBugComponent_Severe {
     &::after {
         position: absolute;
         top: 0;
@@ -426,7 +497,7 @@ p {
     }
 }
 
-.BugOverviewComponent_Major {
+.StarredBugComponent_Major {
     &::after {
         position: absolute;
         top: 0;
@@ -441,7 +512,7 @@ p {
     }
 }
 
-.BugOverviewComponent_Minor {
+.StarredBugComponent_Minor {
     &::after {
         position: absolute;
         top: 0;
@@ -456,7 +527,7 @@ p {
     }
 }
 
-.BugOverviewComponent_Trivial {
+.StarredBugComponent_Trivial {
     &::after {
         position: absolute;
         top: 0;
@@ -471,7 +542,7 @@ p {
     }
 }
 
-.BugOverviewComponent_Unknown {
+.StarredBugComponent_Unknown {
     &::after {
         position: absolute;
         top: 0;
@@ -484,4 +555,8 @@ p {
         border-radius: inherit;
         box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5);
     }
+}
+
+.always_shown {
+    opacity: 100% !important;
 }
