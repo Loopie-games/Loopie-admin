@@ -1,4 +1,4 @@
-import {SimpleUserDTO} from "../user/userInterface";
+import { SimpleUserDTO } from "../user/userInterface";
 
 export enum BUG_SERVERITY {
     SEVERE = 'SEVERE',
@@ -18,11 +18,12 @@ export enum BUG_STATUS {
 
 export interface Bug {
     id: number;
+    title: string;
     description: string;
     severity: BUG_SERVERITY | null;
-    status: BUG_STATUS;
-    asignee: string | null;
+    asignees: SimpleUserDTO[]
     createdDate: Date;
+    relatedBugs: BugReport[];
 }
 
 export enum BUG_SORT_BY {
@@ -36,7 +37,7 @@ export enum BUG_SORT_BY {
 export interface BugReport {
     id: string;
     title: string;
-    description: string;
+    description?: string;
     reportingUser: SimpleUserDTO;
-
+    starId?: string;
 }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Bug from '../../components/Dashboard/Bug/Bug'
 import Dashboard from '../../components/Dashboard/Dasboard/Dashboard'
 import Feedback from '../../components/Dashboard/Feedback/Feedback'
+import TestPage from '../../components/Dashboard/Test/TestPage'
 import Tilepack from '../../components/Dashboard/Tilepack/Tilepack'
 import Usermanagement from '../../components/Dashboard/Usermanagement/Usermanagement'
 import Navbar from '../../components/Shared/navbar/Navbar'
@@ -11,7 +12,7 @@ import { useStore } from '../../stores/store'
 import './DashboardPage.scss'
 
 const DashboardPage = () => {
-    const { authStore } = useStore()
+    const { authStore, popupStore } = useStore()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -32,17 +33,25 @@ const DashboardPage = () => {
         { path: '/bug', element: <Bug /> },
         { path: '/tilepack', element: <Tilepack /> },
         { path: '/usermanagement', element: <Usermanagement /> },
+        { path: '/test', element: <TestPage /> },
     ]
 
     return (
-        <div className='Dashboard_Container'>
-            <div className='Dashboard_NavContainer'>
-                <Navbar />
+        <>
+            {popupStore.popups.map((popup, index) => (
+                <>
+                    {popup.element}
+                </>
+            ))}
+            <div className='Dashboard_Container'>
+                <div className='Dashboard_NavContainer'>
+                    <Navbar />
+                </div>
+                <div className='Dashboard_MainContainer'>
+                    {routes.find(route => route.path === getCurrentPath())?.element}
+                </div>
             </div>
-            <div className='Dashboard_MainContainer'>
-                {routes.find(route => route.path === getCurrentPath())?.element}
-            </div>
-        </div>
+        </>
     )
 }
 

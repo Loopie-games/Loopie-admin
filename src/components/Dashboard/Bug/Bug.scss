@@ -73,7 +73,7 @@
                     align-items: center;
                     display: flex;
                     flex-direction: row;
-                    background: rgba($color: #fff, $alpha: 0.15);    
+                    background: rgba($color: #fff, $alpha: 0.15);
                     gap: 10px;
                     .BugPage_SearchIcon {
                         width: 16px;
@@ -145,6 +145,28 @@
                             cursor: pointer;
                             flex-direction: column;
                         }
+                    }
+                }
+
+                .BugPage_BugNewContainer {
+                    width: 150px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba($color: #fff, $alpha: 0.15);
+                    border-radius: 100px;
+                    cursor: pointer;
+                    transition: background 0.2s ease-in-out;
+                    &:hover {
+                        background: rgba($color: #fff, $alpha: 0.25);
+                    }
+                    .BugPage_NewTitle {
+                        color: #fff;
+                        font-family: "Caviar Dreams";
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
                     }
                 }
             }

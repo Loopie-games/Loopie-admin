@@ -1,0 +1,12 @@
+.Column{
+    width: 100% ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.Column_Dragging{
+    background-color: rgba($color: #fff, $alpha: .1);
+}

@@ -17,6 +17,7 @@ function App() {
     { path: '/bug', element: <DashboardPage /> },
     { path: '/tilepack', element: <DashboardPage /> },
     { path: '/usermanagement', element: <DashboardPage /> },
+    { path: '/test', element: <DashboardPage /> },
   ]
 
   useEffect(() => {
